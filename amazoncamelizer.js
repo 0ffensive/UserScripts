@@ -28,7 +28,7 @@
             return `http://${this.country}.camelcamelcamel.com/product/${this.asin}`;
         }
 
-        getCamelImageUrl() {
+        getCamelImageUrl(width, height) {
             return `http://charts.camelcamelcamel.com/${this.country}/${this.asin}/amazon-new.png?force=1&zero=0&w=${width}&h=${height}&desired=false&legend=1&ilt=1&tp=all&fo=0`;
         }
 
@@ -39,7 +39,7 @@
             }
 
             let container = document.createElement("div");
-            container.innerHTML = `<hr /><a href="${this.getCamelUrl()}" target="_blank"><img src="${this.getCamelImageUrl()}" style="margin-bottom: 15px" /></a><hr />`;
+            container.innerHTML = `<hr /><a href="${this.getCamelUrl()}" target="_blank"><img src="${this.getCamelImageUrl(width, height)}" style="margin-bottom: 15px" /></a><hr />`;
             elem.parentElement.insertBefore(container, elem);
         }
     }
