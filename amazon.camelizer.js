@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name           AmazonCamelizer: CamelCamelCamel Graphs
-// @version        0.1
+// @version        0.2
 // @description    Adds CamelCamelCamel graph to all Amazon product pages.
 // @author         maxwroc
 // @namespace      https://github.com/maxwroc/UserScripts
