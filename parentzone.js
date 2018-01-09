@@ -3,7 +3,7 @@
 // @description Description - lorem impsum
 // @homepageURL http://chodorow.ski
 // @author Maks
-// @version 0.1
+// @version 0.2
 // @date 05-12-2017
 // @namespace PZ
 // @match https://www.parentzone.me/*
@@ -36,7 +36,7 @@ document.head.appendChild(style);
 function highlightIconsForCurrentDay() {
     let dates;
     let interval = setInterval(() => {
-        dates = document.querySelectorAll(".event .date span");
+        dates = document.querySelectorAll(".event .footer .date span");
 
         // keep waiting for events to load
         if (!dates.length) {
@@ -51,6 +51,7 @@ function highlightIconsForCurrentDay() {
         let currentMonth = curr.toLocaleString(navigator.language, { month: "long" });
         let currentDay = curr.getDate().toString();
 
+        console.log("Found posts: " + dates.length);
         for(let i=0; i < dates.length; i++) {
             let dateStr = dates[i].textContent;
             // Post By xxxxx xxx at 09:33am December 5th
