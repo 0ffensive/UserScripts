@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name           AmazonCamelizer: CamelCamelCamel Graphs
-// @version        0.2
+// @version        0.3
 // @description    Adds CamelCamelCamel graph to all Amazon product pages.
 // @author         maxwroc
 // @namespace      https://github.com/maxwroc/UserScripts
@@ -46,7 +46,7 @@
 
     try {
         let a = new AmazonCamelizer();
-        a.insertGraphBefore("#price_feature_div+*");
+        a.insertGraphBefore("#unifiedPrice_feature_div");
     }
     catch (e) {
         console.warn("[AmazonCamelizer]: " + e.message);
