@@ -3,7 +3,7 @@
 // @description Description - lorem impsum
 // @homepageURL http://chodorow.ski
 // @author Maks
-// @version 0.2
+// @version 0.3
 // @date 05-12-2017
 // @namespace PZ
 // @match https://www.parentzone.me/*
@@ -55,7 +55,7 @@ function highlightIconsForCurrentDay() {
         for(let i=0; i < dates.length; i++) {
             let dateStr = dates[i].textContent;
             // Post By xxxxx xxx at 09:33am December 5th
-            let match = dateStr.match(/([a-z]+)\s([0-9]+)(th|nd|st)/i);
+            let match = dateStr.match(/([a-z]+)\s([0-9]+)(st|nd|rd|th)/i);
             console.log("Testing: " + dateStr);
             if (match && match[1] == currentMonth && match[2] == currentDay) {
                 console.log("passed");
