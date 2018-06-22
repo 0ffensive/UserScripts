@@ -71,7 +71,7 @@
     }
 
     function disableAdBlockNotification() {
-        if(document.cookie.indexOf("bankier_adb_disabled=1")) {
+        if(document.cookie.indexOf("bankier_adb_disabled=1") == -1) {
             console.log("[BankierAutoLogin] Disabling ADB message");
             document.cookie = "bankier_adb_disabled=1;path=/"
         }
