@@ -25,10 +25,10 @@
         return;
     }
 	
-	if(document.cookie.indexOf("bankier_adb_disabled=1")) {
-		console.log("[BankierAutoLogin] Disabling ABP notification message");
-		document.cookie = "bankier_adb_disabled=1;path=/"
-	}
+    if(document.cookie.indexOf("bankier_adb_disabled=1")) {
+        console.log("[BankierAutoLogin] Disabling ABP notification message");
+        document.cookie = "bankier_adb_disabled=1;path=/"
+    }
 
     if(!login) {
         console.log("[BankierAutoLogin] Waiting for the first login");
