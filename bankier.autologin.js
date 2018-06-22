@@ -24,7 +24,7 @@
         console.warn("[BankierAutoLogin] Failed to get form fields");
         return;
     }
-	
+
     if(document.cookie.indexOf("bankier_adb_disabled=1")) {
         console.log("[BankierAutoLogin] Disabling ABP notification message");
         document.cookie = "bankier_adb_disabled=1;path=/"
