@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bankier - auto-login
 // @namespace    https://github.com/maxwroc/UserScripts
-// @version      0.3
+// @version      0.4
 // @description  Skrypt do automatycznego logowania sie na stonach bankier.pl
 // @author       maxwroc
 // @match        https://www.bankier.pl/*
@@ -17,7 +17,7 @@
         "/gielda/notowania/obserwowane-spolki": redirectToLogin
     }
 
-    disableAdBlockNotification();
+    disableNotifications();
 
     let handler = pathToHandlerMapping[location.pathname];
     handler && handler();
@@ -70,10 +70,15 @@
         }
     }
 
-    function disableAdBlockNotification() {
+    function disableNotifications() {
         if(document.cookie.indexOf("bankier_adb_disabled=1") == -1) {
             console.log("[BankierAutoLogin] Disabling ADB message");
             document.cookie = "bankier_adb_disabled=1;path=/"
+        }
+        
+        if(document.cookie.indexOf("smwp=false") == -1) {
+            console.log("[BankierAutoLogin] Disabling popup for subscription");
+            document.cookie = "smwp=false;path=/"
         }
     }
 })();
