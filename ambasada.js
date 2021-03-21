@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Ambasada
 // @namespace    https://github.com/maxwroc/UserScripts
-// @version      0.1
+// @version      0.2
 // @description  try to take over the world!
 // @author       You
 // @match        https://secure.e-konsulat.gov.pl/*
@@ -18,6 +18,8 @@
     };
 
     var qs = sel => document.querySelector(sel);
+    let ge = id => document.getElementById(id);
+    let findChildElem = (where, what) => Array.from(document.querySelectorAll(where)).find(el => el.textContent.toUpperCase() == what.toUpperCase());
 
     let handler = mapping[location.pathname];
     handler && handler();
@@ -30,14 +32,39 @@
     }
 
     function step1() {
-        let elem = qs("#tresc_upKraj > select");
-        elem.value = 15;
-        trigger(elem, "change");
-        setTimeout(() => {
-            elem = qs("#tresc_upPlacowka > select");
-            elem.value = 105;
-            trigger(elem, "change");
-        }, 500);
+
+        var elemKraj = findChildElem("#tresc_upKraj select > option", "WIELKA BRYTANIA");
+        if (!elemKraj) {
+            console.log(elemKraj);
+            alert("kraj nie odnaleziony");
+            return;
+        }
+
+        let elemTargetKraj = qs("#tresc_upKraj select");
+
+        if (elemTargetKraj.value == elemKraj.value) {
+            var elemPlacowka = findChildElem("#tresc_upPlacowka select > option", "Londyn (wszystkie rodzaje paszportów; sprawy prawne; sprawy wizowe)");
+            if (!elemPlacowka) {
+                console.log(elemPlacowka);
+                alert("placowka nie znaleziona");
+                return;
+            }
+
+            let elemTargetPlac = qs("#tresc_upPlacowka select");
+            elemTargetPlac.value = elemPlacowka.value;
+            trigger(elemTargetPlac, "change");
+        }
+        else {
+            let startBtn = document.createElement("button");
+            startBtn.textContent = "Start auto-click"
+            startBtn.addEventListener("click", () => {
+                elemTargetKraj.value = elemKraj.value;
+                // trigger(elemTargetKraj, "change");
+            });
+
+            let container = ge("tresc_panelIndywidualny");
+            container.append(startBtn);
+        }
     }
 
     function step2() {
@@ -46,19 +73,33 @@
     }
 
     function step3() {
-        let elem = qs("#cp_cbLokalizacja");
+        let lokalizacjaElem = findChildElem("#cp_cbLokalizacja > option", "Londyn");
+        let lokalizacjaTarget = qs("#cp_cbLokalizacja");
+        let infoElem = qs("#cp_lblInformacje");
 
-        if(elem.value != 145) {
-            elem.value = 145;
-            trigger(elem, "change");
+        if (!lokalizacjaElem || !lokalizacjaTarget || !infoElem) {
+            console.log("lokalizacjaElem", lokalizacjaElem);
+            console.log("lokalizacjaTarget", lokalizacjaTarget);
+            console.log("infoElem", infoElem);
+            alert("lokalizacja nie odnaleziona");
+            return;
         }
-        else {
+
+        infoElem.parentElement.style.display = "none";
+
+        if(lokalizacjaTarget.value != lokalizacjaElem.value) {
+            lokalizacjaTarget.value = lokalizacjaElem.value;
+            //trigger(elem, "change");
+
             setTimeout(() => {
                 let elem = qs("#cp_lblRezerwacjaTerminu").nextElementSibling;
+                console.log(elem);
+
+                console.log(elem.value)
 
                 if(elem.value == 1) {
-                    let text = qs("#cp_lblInformacje").parentElement;
-                    text.style.display = "none";
+                    //let text = qs("#cp_lblInformacje").parentElement;
+                    //text.style.display = "none";
                     return;
                 }
 
@@ -66,6 +107,8 @@
                 trigger(elem, "change");
 
             }, 500);
+        }
+        else {
         }
     }
 
